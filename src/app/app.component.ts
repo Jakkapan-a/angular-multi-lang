@@ -1,16 +1,15 @@
+
 import {Component, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {HttpClient} from '@angular/common/http';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-
-
+import { locale as enLang } from './modules/i18n/vocabs/en';
+import { locale as thLang } from './modules/i18n/vocabs/th';
+import {TranslationModule , TranslationService} from './modules/i18n/';
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
-    TranslateModule
+    TranslationModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -18,26 +17,35 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 export class AppComponent {
   title = 'multi-lang';
   lang: string = 'en';
-  constructor(private translate: TranslateService) {
-    if (typeof localStorage !== 'undefined') {
-      this.lang = localStorage.getItem('lang') || 'en';
-      console.log('lang', this.lang);
-      this.translate.use(this.lang);
-    }
+  constructor(private translationService: TranslationService) {
+    this.translationService.loadTranslations(enLang, thLang);
+    this.lang = this.translationService.getSelectedLanguage();
   }
+
   changeLanguage(lang: any) {
-    const selectedLang = lang.target.value;
-    localStorage.setItem('lang', selectedLang);
-    this.lang = selectedLang;
-    this.translate.use(this.lang);
+    this.translationService.setLanguage(lang.target.value);
   }
 
   ngOnInit() {
-
-    // if (typeof localStorage !== 'undefined') {
-    //   this.lang = localStorage.getItem('lang') || 'en';
-    //   console.log('lang', this.lang);
-    //   this.translate.use(this.lang);
-    // }
   }
 }
+interface LanguageFlag {
+  lang: string;
+  name: string;
+  flag: string;
+  active?: boolean;
+}
+
+
+const languages = [
+  {
+    lang: 'en',
+    name: 'English',
+    flag: './assets/media/flags/united-states.svg',
+  },
+  {
+    lang: 'th',
+    name: 'Thai',
+    flag: './assets/media/flags/thai.svg',
+  }
+];
