@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+  <a href="#" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+    <h2 class="m-0 text-primary">LOGO</h2>
+  </a>
+  <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="navbar-nav ms-auto p-4 p-lg-0">
+      <select class="form-select form-select-sm" (change)="changeLanguage($event)" name="language" id="language">
+
+        <option value="en" [selected]="lang === 'en'">English</option>
+        <option value="th" [selected]="lang === 'th'">Thai</option>
+        <option value="jp" [selected]="lang === 'jp'">Japanese</option>
+        <option value="kr" [selected]="lang === 'kr'">Korean</option>
+      </select>
+    </div>
+  </div>
+</nav>
+
+<div class="row">
+  <div class="col-12">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center my-5">{{ 'Welcome to MultiLang'| translate }}</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex justify-content-center">
+            <a href="#" class="btn btn-primary btn-lg" >{{ 'Get Started' | translate }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
